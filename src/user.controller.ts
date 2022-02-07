@@ -3,6 +3,7 @@ import {
   Controller,
   Get,
   Post,
+  Redirect,
   Req,
   UseGuards,
   ValidationPipe,
@@ -22,9 +23,9 @@ export class UserController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+  @Redirect('api')
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  redirect() {}
 
   @Post('create_user')
   @MessagePattern({ cmd: 'create_user' })
