@@ -9,6 +9,7 @@ import { AppService } from './user.service';
 import { typeOrmConfig } from './config/typeorm.config';
 import { JwtStrategy } from './jwt.strategy';
 import { UserRepository } from './user.repository';
+import { AppModule } from './app/app.module';
 
 const jwtConfig = config.get('jwt');
 @Module({
@@ -29,6 +30,7 @@ const jwtConfig = config.get('jwt');
         options: { port: 3000 },
       },
     ]),
+    AppModule,
   ],
   controllers: [UserController],
   providers: [AppService, JwtStrategy],

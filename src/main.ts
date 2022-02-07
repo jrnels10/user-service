@@ -2,10 +2,11 @@ import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { UserModule } from './user.module';
 import * as config from 'config';
+import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const serverConfig = config.get('server');
-  const app = await NestFactory.create(UserModule);
+  const app = await NestFactory.create(AppModule);
   app.enableCors({ origin: '*' });
   app.connectMicroservice({
     transport: Transport.TCP,
