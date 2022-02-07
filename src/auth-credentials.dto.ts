@@ -5,25 +5,27 @@ import {
   Matches,
   IsEmail,
 } from 'class-validator';
+import { ApiProperty, ApiBody } from '@nestjs/swagger';
 
 export class AuthCredentialsDto {
+  @ApiProperty()
   @IsString()
   @MinLength(4)
   @MaxLength(20)
   firstName: string;
 
+  @ApiProperty()
   @IsString()
   @MinLength(4)
   @MaxLength(20)
   lastName: string;
 
+  @ApiProperty()
   @IsEmail()
   @IsString()
   email: string;
 
-  // @IsString()
-  // userType: UserType;
-
+  @ApiProperty()
   @IsString()
   @MinLength(8)
   @MaxLength(20)
@@ -35,10 +37,12 @@ export class AuthCredentialsDto {
 }
 
 export class AuthSignInCredentialsDto {
+  @ApiProperty()
   @IsEmail()
   @IsString()
   email: string;
 
+  @ApiProperty()
   @IsString()
   @MinLength(8)
   @MaxLength(20)
