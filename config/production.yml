@@ -1,0 +1,5 @@
+server:
+  origin: https://modest-mirzakhani-e930e2.netlify.app
+
+db:
+  synchronize: true

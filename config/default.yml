@@ -1,0 +1,8 @@
+server:
+  port: 5001
+
+db:
+  type: 'postgres'
+
+jwt:
+  expiresIn: '24h'
