@@ -13,7 +13,7 @@ import {
 
 @EntityRepository(User)
 export class UserRepository extends Repository<User> {
-  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<void> {
+  async signUp(authCredentialsDto: AuthCredentialsDto): Promise<string> {
     const { firstName, lastName, email, password } = authCredentialsDto;
     const user = this.create(); //new User();
     user.firstName = firstName;
@@ -24,11 +24,13 @@ export class UserRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     try {
       await user.save();
+      return 'account created';
     } catch (error) {
-      console.log(error);
       if (error.code === '23505') {
+        console.log(error);
         // duplicate username
-        throw new ConflictException('account already exist');
+        return 'account already exist';
+        // throw new ConflictException('account already exist');
       } else {
         throw new InternalServerErrorException();
       }

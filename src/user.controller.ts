@@ -7,9 +7,9 @@ import {
   UseGuards,
   ValidationPipe,
 } from '@nestjs/common';
-import { EventPattern } from '@nestjs/microservices';
+import { MessagePattern } from '@nestjs/microservices';
 import { AuthGuard } from '@nestjs/passport';
-import { AppService } from './app.service';
+import { AppService } from './user.service';
 import {
   AuthCredentialsDto,
   AuthSignInCredentialsDto,
@@ -18,7 +18,7 @@ import { User } from './user.entity';
 import { GetUser } from './get-user.decorator';
 
 @Controller()
-export class AppController {
+export class UserController {
   constructor(private readonly appService: AppService) {}
 
   @Get()
@@ -27,17 +27,21 @@ export class AppController {
   }
 
   @Post('create_user')
-  createUser(@Body(ValidationPipe) data: AuthCredentialsDto) {
-    this.appService.handleCreateUser(data);
+  @MessagePattern({ cmd: 'create_user' })
+  handleUserCreated(
+    @Body(ValidationPipe) data: AuthCredentialsDto,
+  ): Promise<string> {
+    return this.appService.handleCreateUser(data);
   }
 
-  @EventPattern('create_user')
-  handleUserCreated(data: AuthCredentialsDto) {
-    console.log('controller', data);
-    this.appService.handleCreateUser(data);
-  }
+  // @MessagePattern({ cmd: 'sum' })
+  // accumulate(data: number[]): number {
+  //   console.log(data);
+  //   return (data || []).reduce((a, b) => a + b);
+  // }
 
   @Post('/signin')
+  @MessagePattern({ cmd: 'sign_user' })
   signIn(
     @Body(ValidationPipe) authSignInCredentialsDto: AuthSignInCredentialsDto,
   ): Promise<{ accessToken: string }> {
