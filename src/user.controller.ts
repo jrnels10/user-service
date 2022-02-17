@@ -35,11 +35,11 @@ export class UserController {
     return this.appService.handleCreateUser(data);
   }
 
-  // @MessagePattern({ cmd: 'sum' })
-  // accumulate(data: number[]): number {
-  //   console.log(data);
-  //   return (data || []).reduce((a, b) => a + b);
-  // }
+  @MessagePattern({ cmd: 'sum' })
+  accumulate(data: number[]): number {
+    console.log(data);
+    return (data || []).reduce((a, b) => a + b);
+  }
 
   @Post('/signin')
   @MessagePattern({ cmd: 'sign_user' })
