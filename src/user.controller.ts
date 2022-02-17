@@ -34,7 +34,7 @@ export class UserController {
   ): Promise<string> {
     return this.appService.handleCreateUser(data);
   }
-
+  @Get('accumulate')
   @MessagePattern({ cmd: 'sum' })
   accumulate(data: number[]): number {
     console.log(data);
