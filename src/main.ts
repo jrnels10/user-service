@@ -24,6 +24,9 @@ async function bootstrap() {
   app.enableCors({ origin: '*' });
   app.connectMicroservice({
     transport: Transport.TCP,
+    options: {
+      port: 3000,
+    },
   });
   await app.startAllMicroservices();
   const port = process.env.PORT || 5001;

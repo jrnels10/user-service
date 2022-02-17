@@ -27,7 +27,7 @@ const jwtConfig = config.get('jwt');
       {
         name: 'COMMUNICATION',
         transport: Transport.TCP,
-        // options: { port: 3000 },
+        options: { port: 3000 },
       },
     ]),
     AppModule,
